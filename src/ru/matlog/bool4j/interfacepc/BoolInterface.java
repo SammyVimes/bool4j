@@ -24,6 +24,7 @@ import javax.swing.table.TableModel;
 import ru.matlog.bool4j.expression.Calculable;
 import ru.matlog.bool4j.expression.Expression;
 import ru.matlog.bool4j.expression.RecursiveCalculableFactoryImpl;
+import ru.matlog.bool4j.expression.operator.Operators;
 import ru.matlog.bool4j.parser.Parser;
 import ru.matlog.bool4j.parser.RecursiveParserImpl;
 
@@ -39,6 +40,7 @@ public class BoolInterface extends javax.swing.JFrame {
     public BoolInterface() {
         initComponents();
         jTabbedPane1.setVisible(false);
+        jScrollPane3.setVisible(false);
     }
 
     public static void main(String args[]) {
@@ -83,17 +85,144 @@ public class BoolInterface extends javax.swing.JFrame {
     private void initComponents() {
 
         jTextField1 = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        jButtonDis = new javax.swing.JButton();
+        jButtonCon = new javax.swing.JButton();
+        jButtonImp = new javax.swing.JButton();
+        jButtonEql = new javax.swing.JButton();
+        jButtonXor = new javax.swing.JButton();
+        jButtonX = new javax.swing.JButton();
+        jButtonY = new javax.swing.JButton();
+        jButtonZ = new javax.swing.JButton();
+        jButtonLbr = new javax.swing.JButton();
+        jButton1Rbr = new javax.swing.JButton();
         tableButton = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextArea2 = new javax.swing.JTextArea();
+        jButton10 = new javax.swing.JButton();
+        jButtonZ1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Bool4j");
+        setMinimumSize(new java.awt.Dimension(735, 560));
 
         jTextField1.setToolTipText("Введите сюда желаемое логическое выражение");
+
+        jButtonDis.setText("Дизъюнкция");
+        jButtonDis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDisActionPerformed(evt);
+            }
+        });
+
+        jButtonCon.setText("Конъюнкция");
+        jButtonCon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonConActionPerformed(evt);
+            }
+        });
+
+        jButtonImp.setText("Импликация");
+        jButtonImp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonImpActionPerformed(evt);
+            }
+        });
+
+        jButtonEql.setText("Эквиваленция");
+        jButtonEql.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEqlActionPerformed(evt);
+            }
+        });
+
+        jButtonXor.setText("XOR");
+        jButtonXor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonXorActionPerformed(evt);
+            }
+        });
+
+        jButtonX.setText("X");
+        jButtonX.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonXActionPerformed(evt);
+            }
+        });
+
+        jButtonY.setText("Y");
+        jButtonY.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonYActionPerformed(evt);
+            }
+        });
+
+        jButtonZ.setText("Z");
+        jButtonZ.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonZActionPerformed(evt);
+            }
+        });
+
+        jButtonLbr.setText("(");
+        jButtonLbr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLbrActionPerformed(evt);
+            }
+        });
+
+        jButton1Rbr.setText(")");
+        jButton1Rbr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1RbrActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jButtonDis)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonCon)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonImp)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonEql)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonXor)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonLbr)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1Rbr)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonX)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonY)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonZ)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jButtonDis)
+                .addComponent(jButtonCon)
+                .addComponent(jButtonImp)
+                .addComponent(jButtonEql)
+                .addComponent(jButtonXor)
+                .addComponent(jButtonX)
+                .addComponent(jButtonY)
+                .addComponent(jButtonZ)
+                .addComponent(jButtonLbr)
+                .addComponent(jButton1Rbr))
+        );
 
         tableButton.setText("Анализировать выражение");
         tableButton.setToolTipText("Построить таблицу истинности соответствующую данному логическому выражению, найти КНФ и ДНФ");
@@ -142,28 +271,68 @@ public class BoolInterface extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Результат анализа", jScrollPane1);
 
+        jTextArea2.setEditable(false);
+        jTextArea2.setColumns(20);
+        jTextArea2.setRows(5);
+        jTextArea2.setEnabled(false);
+        jTextArea2.setFocusable(false);
+        jTextArea2.setOpaque(false);
+        jTextArea2.setRequestFocusEnabled(false);
+        jTextArea2.setVerifyInputWhenFocusTarget(false);
+        jScrollPane3.setViewportView(jTextArea2);
+
+        jButton10.setText("▒");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+
+        jButtonZ1.setText("<-");
+        jButtonZ1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonZ1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tableButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(tableButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTabbedPane1)
+                    .addComponent(jScrollPane3)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jTextField1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonZ1)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonZ1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tableButton)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tableButton)
+                    .addComponent(jButton10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         tableButton.getAccessibleContext().setAccessibleDescription("Построить таблицу истинности соответствующую данному логическому выражению, найти СКНФ и СДНФ");
@@ -181,8 +350,10 @@ public class BoolInterface extends javax.swing.JFrame {
             if (Util.bracketValidator(input)) {
                 try {
                     jTabbedPane1.setVisible(true);
+                    jScrollPane3.setVisible(true);
                     Expression exp = p.parse(jTextField1.getText());
                     String result = new String();
+                    String result2 = new String();
                     result += ("Выражение: " + exp.toString() + "\n\nТаблица истинности:\n");
                     Parser p = new RecursiveParserImpl();
 
@@ -196,7 +367,7 @@ public class BoolInterface extends javax.swing.JFrame {
                         title[i++] = key;
                         result += (key + " ");
                     }
-                    title[i] = "f";
+                    title[i] = "Результат";
 
                     result += ("f\n");
 
@@ -240,16 +411,19 @@ public class BoolInterface extends javax.swing.JFrame {
                     Expression exp1 = c.convert(exp);
                     if (exp1 != null) {
                         result += ("\nСДНФ: " + exp1.toString());
+                        result2 += ("\nСДНФ: " + exp1.toString());
                     }
                     c = new SKNFConverter();
                     exp1 = c.convert(exp);
                     if (exp1 != null) {
                         result += ("\n\nСКНФ: " + exp1.toString());
+                        result2 += ("\n\nСКНФ: " + exp1.toString());
                     }
                     c = new JPolynomConverter();
                     exp1 = c.convert(exp);
                     if (exp1 != null) {
                         result += ("\n\nЖегалкин: " + exp1.toString());
+                        result2 += ("\n\nЖегалкин: " + exp1.toString());
                     }
 
                     jTextArea1.setText(result);
@@ -261,6 +435,7 @@ public class BoolInterface extends javax.swing.JFrame {
                         }
                     });
 
+                    jTextArea2.setText(result2);
                     jScrollPane2.setViewportView(jTable1);
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(this,
@@ -281,12 +456,83 @@ public class BoolInterface extends javax.swing.JFrame {
                     JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_tableButtonActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        if(jPanel1.isVisible()){
+            jPanel1.setVisible(false);
+        }else{
+            jPanel1.setVisible(true);
+        }
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButtonDisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDisActionPerformed
+insertIntoInputField(Operators.DISJUNCTION.REPRESENTATION);
+    }//GEN-LAST:event_jButtonDisActionPerformed
+
+    private void jButtonConActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConActionPerformed
+  insertIntoInputField(Operators.CONJUNCTION.REPRESENTATION);
+    }//GEN-LAST:event_jButtonConActionPerformed
+
+    private void jButtonImpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImpActionPerformed
+       insertIntoInputField(Operators.IMPLICATION.REPRESENTATION);
+    }//GEN-LAST:event_jButtonImpActionPerformed
+
+    private void jButtonEqlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEqlActionPerformed
+ insertIntoInputField(Operators.EQUAL.REPRESENTATION);
+    }//GEN-LAST:event_jButtonEqlActionPerformed
+
+    private void jButtonXorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonXorActionPerformed
+ insertIntoInputField(Operators.XOR.REPRESENTATION);
+    }//GEN-LAST:event_jButtonXorActionPerformed
+
+    private void jButtonLbrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLbrActionPerformed
+ insertIntoInputField("(");
+    }//GEN-LAST:event_jButtonLbrActionPerformed
+
+    private void jButton1RbrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1RbrActionPerformed
+insertIntoInputField(")");
+    }//GEN-LAST:event_jButton1RbrActionPerformed
+
+    private void jButtonXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonXActionPerformed
+insertIntoInputField("x");
+    }//GEN-LAST:event_jButtonXActionPerformed
+
+    private void jButtonYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonYActionPerformed
+insertIntoInputField("y");
+    }//GEN-LAST:event_jButtonYActionPerformed
+
+    private void jButtonZActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonZActionPerformed
+insertIntoInputField("z");        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonZActionPerformed
+
+    private void jButtonZ1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonZ1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonZ1ActionPerformed
+
+    private void insertIntoInputField(String s ){
+        jTextField1.setText(jTextField1.getText().substring(0, jTextField1.getSelectionStart())+s+jTextField1.getText().substring(jTextField1.getSelectionStart(), jTextField1.getText().length())+" "); 
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton1Rbr;
+    private javax.swing.JButton jButtonCon;
+    private javax.swing.JButton jButtonDis;
+    private javax.swing.JButton jButtonEql;
+    private javax.swing.JButton jButtonImp;
+    private javax.swing.JButton jButtonLbr;
+    private javax.swing.JButton jButtonX;
+    private javax.swing.JButton jButtonXor;
+    private javax.swing.JButton jButtonY;
+    private javax.swing.JButton jButtonZ;
+    private javax.swing.JButton jButtonZ1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JButton tableButton;
     // End of variables declaration//GEN-END:variables

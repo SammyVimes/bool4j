@@ -1,4 +1,13 @@
 #################
+## NetBeans
+#################
+nbproject/
+build.xml
+manifest.mf
+.gitignore
+
+
+#################
 ## Eclipse
 #################
 
