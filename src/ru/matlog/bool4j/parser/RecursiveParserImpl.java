@@ -11,9 +11,17 @@ import ru.matlog.bool4j.expression.operator.Operators;
 public class RecursiveParserImpl implements Parser{
 
 	@Override
-	public Expression parse(final String string) {
+	public Expression parse(String string) {
 		Counter count = new Counter();
-		return parse(string, count);
+                
+                string = string.replace("->", " -> ");
+                string = string.replace("+", " + ");
+string = string.replace("*", " * ");
+string = string.replace("<=>", " <=> ");
+string = string.replace("   ", " ");
+string = string.replace("  ", " ");
+string = string.trim();
+		return parse("("+string+")", count);
 	}
 	
 	public Expression parse(final String string, final Counter count) {
