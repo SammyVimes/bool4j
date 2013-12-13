@@ -3,7 +3,6 @@ package ru.matlog.bool4j.parser;
 import ru.matlog.bool4j.expression.Expression;
 
 public interface Parser {
-	
-	public Expression parse(final String input);
-	
+
+    public Expression parse(final String input);
 }
