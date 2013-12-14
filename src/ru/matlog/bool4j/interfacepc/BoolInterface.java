@@ -12,6 +12,7 @@ import com.danilov.converter.JPolynomConverter;
 import com.danilov.converter.SKNFConverter;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
+import ru.matlog.bool4j.closures.ClosureClass;
+import ru.matlog.bool4j.closures.ClosureClasses;
 import ru.matlog.bool4j.expression.Calculable;
 import ru.matlog.bool4j.expression.Expression;
 import ru.matlog.bool4j.expression.RecursiveCalculableFactoryImpl;
@@ -105,7 +108,7 @@ public class BoolInterface extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextArea2 = new javax.swing.JTextArea();
         jButton10 = new javax.swing.JButton();
-        jButtonZ1 = new javax.swing.JButton();
+        jButtonBackspace = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Bool4j");
@@ -259,6 +262,11 @@ public class BoolInterface extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTable1);
 
         jTabbedPane1.addTab("Таблица истинности", jScrollPane2);
@@ -288,10 +296,10 @@ public class BoolInterface extends javax.swing.JFrame {
             }
         });
 
-        jButtonZ1.setText("<-");
-        jButtonZ1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonBackspace.setText("<-");
+        jButtonBackspace.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonZ1ActionPerformed(evt);
+                jButtonBackspaceActionPerformed(evt);
             }
         });
 
@@ -312,7 +320,7 @@ public class BoolInterface extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jTextField1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonZ1)))
+                        .addComponent(jButtonBackspace)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -321,7 +329,7 @@ public class BoolInterface extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonZ1))
+                    .addComponent(jButtonBackspace))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -331,7 +339,7 @@ public class BoolInterface extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -349,94 +357,7 @@ public class BoolInterface extends javax.swing.JFrame {
 
             if (Util.bracketValidator(input)) {
                 try {
-                    jTabbedPane1.setVisible(true);
-                    jScrollPane3.setVisible(true);
-                    Expression exp = p.parse(jTextField1.getText());
-                    String result = new String();
-                    String result2 = new String();
-                    result += ("Выражение: " + exp.toString() + "\n\nТаблица истинности:\n");
-                    Parser p = new RecursiveParserImpl();
-
-                    Calculable calc = exp.toCalculable(new RecursiveCalculableFactoryImpl());
-                    VariablesSet varSet = new VariablesSet(calc.getVariableNames());
-                    List<String> vv = varSet.getKeySet();
-                    String[] title = new String[vv.size() + 1];
-                    String[][] results = new String[(int) Math.pow(2, vv.size())][vv.size() + 1];
-                    int i = 0;
-                    for (String key : vv) {
-                        title[i++] = key;
-                        result += (key + " ");
-                    }
-                    title[i] = "Результат";
-
-                    result += ("f\n");
-
-                    int x = 0;
-                    int y = 0;
-
-
-                    while (varSet.notEnd()) {
-                        Map<String, Boolean> m = varSet.get();
-                        calc.with(m);
-                        for (String key : vv) {
-                            Boolean var = m.get(key);
-                            String s;
-                            if (var) {
-                                s = "1";
-                            } else {
-                                s = "0";
-                            }
-                            //System.out.println(y+":"+x+"="+s);
-                            results[y][x++] = s;
-                            result += (s + " ");
-                        }
-                        Boolean val = calc.calculate();
-                        String s;
-                        if (val) {
-                            s = "1";
-                        } else {
-                            s = "0";
-                        }
-                        results[y++][x] = s;
-                        x = 0;
-                        result += (s + "\n");
-                        result += ("");
-                        varSet.moveToNext();
-                    }
-
-
-
-
-                    Converter c = new SDNFConverter();
-                    Expression exp1 = c.convert(exp);
-                    if (exp1 != null) {
-                        result += ("\nСДНФ: " + exp1.toString());
-                        result2 += ("\nСДНФ: " + exp1.toString());
-                    }
-                    c = new SKNFConverter();
-                    exp1 = c.convert(exp);
-                    if (exp1 != null) {
-                        result += ("\n\nСКНФ: " + exp1.toString());
-                        result2 += ("\n\nСКНФ: " + exp1.toString());
-                    }
-                    c = new JPolynomConverter();
-                    exp1 = c.convert(exp);
-                    if (exp1 != null) {
-                        result += ("\n\nЖегалкин: " + exp1.toString());
-                        result2 += ("\n\nЖегалкин: " + exp1.toString());
-                    }
-
-                    jTextArea1.setText(result);
-                    jTable1.setModel(new javax.swing.table.DefaultTableModel(
-                            results,
-                            title) {
-                        public boolean isCellEditable(int rowIndex, int columnIndex) {
-                            return false;
-                        }
-                    });
-
-                    jTextArea2.setText(result2);
-                    jScrollPane2.setViewportView(jTable1);
+                    updateResult();
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(this,
                             "Сёма уже работает над этой исправлением ошибки! Или Макс. Или Эдик.",
@@ -458,63 +379,191 @@ public class BoolInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_tableButtonActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        if(jPanel1.isVisible()){
+        if (jPanel1.isVisible()) {
             jPanel1.setVisible(false);
-        }else{
+        } else {
             jPanel1.setVisible(true);
         }
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButtonDisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDisActionPerformed
-insertIntoInputField(Operators.DISJUNCTION.REPRESENTATION);
+        insertIntoInputField(Operators.DISJUNCTION.REPRESENTATION);
     }//GEN-LAST:event_jButtonDisActionPerformed
 
     private void jButtonConActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConActionPerformed
-  insertIntoInputField(Operators.CONJUNCTION.REPRESENTATION);
+        insertIntoInputField(Operators.CONJUNCTION.REPRESENTATION);
     }//GEN-LAST:event_jButtonConActionPerformed
 
     private void jButtonImpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImpActionPerformed
-       insertIntoInputField(Operators.IMPLICATION.REPRESENTATION);
+        insertIntoInputField(Operators.IMPLICATION.REPRESENTATION);
     }//GEN-LAST:event_jButtonImpActionPerformed
 
     private void jButtonEqlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEqlActionPerformed
- insertIntoInputField(Operators.EQUAL.REPRESENTATION);
+        insertIntoInputField(Operators.EQUAL.REPRESENTATION);
     }//GEN-LAST:event_jButtonEqlActionPerformed
 
     private void jButtonXorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonXorActionPerformed
- insertIntoInputField(Operators.XOR.REPRESENTATION);
+        insertIntoInputField(Operators.XOR.REPRESENTATION);
     }//GEN-LAST:event_jButtonXorActionPerformed
 
     private void jButtonLbrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLbrActionPerformed
- insertIntoInputField("(");
+        insertIntoInputField("(");
     }//GEN-LAST:event_jButtonLbrActionPerformed
 
     private void jButton1RbrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1RbrActionPerformed
-insertIntoInputField(")");
+        insertIntoInputField(")");
     }//GEN-LAST:event_jButton1RbrActionPerformed
 
     private void jButtonXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonXActionPerformed
-insertIntoInputField("x");
+        insertIntoInputField("x");
     }//GEN-LAST:event_jButtonXActionPerformed
 
     private void jButtonYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonYActionPerformed
-insertIntoInputField("y");
+        insertIntoInputField("y");
     }//GEN-LAST:event_jButtonYActionPerformed
 
     private void jButtonZActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonZActionPerformed
-insertIntoInputField("z");        // TODO add your handling code here:
+        insertIntoInputField("z");        // TODO add your handling code here:
     }//GEN-LAST:event_jButtonZActionPerformed
 
-    private void jButtonZ1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonZ1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonZ1ActionPerformed
+    private void jButtonBackspaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBackspaceActionPerformed
+        if (jTextField1.getText().length() > 0) {
+            jTextField1.setText(jTextField1.getText().substring(0, jTextField1.getText().length() - 1));
+        }
+    }//GEN-LAST:event_jButtonBackspaceActionPerformed
 
-    private void insertIntoInputField(String s ){
-        jTextField1.setText(jTextField1.getText().substring(0, jTextField1.getSelectionStart())+s+jTextField1.getText().substring(jTextField1.getSelectionStart(), jTextField1.getText().length())+" "); 
+    private void updateResult() {
+        jTabbedPane1.setVisible(true);
+        jScrollPane3.setVisible(true);
+        Expression exp = p.parse(jTextField1.getText());
+        String result = new String();
+        String result2 = new String();
+        result += ("Выражение: " + exp.toString() + "\n\nТаблица истинности:\n");
+        Parser p = new RecursiveParserImpl();
+
+        Calculable calc = exp.toCalculable(new RecursiveCalculableFactoryImpl());
+        VariablesSet varSet = new VariablesSet(calc.getVariableNames());
+        List<String> vv = varSet.getKeySet();
+        String[] title = new String[vv.size() + 1];
+        String[][] results = new String[(int) Math.pow(2, vv.size())][vv.size() + 1];
+        int i = 0;
+        for (String key : vv) {
+            title[i++] = key;
+            result += (key + " ");
+        }
+        title[i] = "Результат";
+
+        result += ("f\n");
+
+        int x = 0;
+        int y = 0;
+
+
+        int row = jTable1.getSelectedRow();
+
+        int j = 0;
+        while (varSet.notEnd()) {
+            Map<String, Boolean> m = varSet.get();
+            calc.with(m);
+
+            for (String key : vv) {
+                Boolean var = m.get(key);
+                String s;
+                if (var) {
+                    s = "1";
+                } else {
+                    s = "0";
+                }
+                //System.out.println(y+":"+x+"="+s);
+                results[y][x++] = s;
+                result += (s + " ");
+            }
+
+            if (row == j) {
+            }
+
+
+            Boolean val = calc.calculate();
+            String s;
+            if (val) {
+                s = "1";
+
+            } else {
+                s = "0";
+
+            }
+            results[y++][x] = s;
+            x = 0;
+            result += (s + "\n");
+            result += ("");
+            varSet.moveToNext();
+            j++;
+        }
+
+        Map<String, Boolean> m = varSet.get();
+        ClosureClass cc = ClosureClasses.getClosureClass("T0");
+        result += ("\nT0: " + cc.whetherBelongs(exp, m));
+        result2 += ("T0: " + cc.whetherBelongs(exp, m));
+        cc = ClosureClasses.getClosureClass("T1");
+        result += ("\n\nT1: " + cc.whetherBelongs(exp, m));
+        result2 += ("\n\nT1: " + cc.whetherBelongs(exp, m));
+        cc = ClosureClasses.getClosureClass("S");
+        result += ("\n\nS: " + cc.whetherBelongs(exp, m));
+        result2 += ("\n\nS: " + cc.whetherBelongs(exp, m));
+        cc = ClosureClasses.getClosureClass("M");
+        result += ("\n\nM: " + cc.whetherBelongs(exp, m));
+        result2 += ("\n\nM: " + cc.whetherBelongs(exp, m));
+
+
+        Converter c = new SDNFConverter();
+        Expression exp1 = c.convert(exp);
+        if (exp1 != null) {
+            result += ("\n\nСДНФ: " + exp1.toString());
+            result2 += ("\n\nСДНФ: " + exp1.toString());
+        }
+        c = new SKNFConverter();
+        exp1 = c.convert(exp);
+        if (exp1 != null) {
+            result += ("\n\nСКНФ: " + exp1.toString());
+            result2 += ("\n\nСКНФ: " + exp1.toString());
+        }
+        c = new JPolynomConverter();
+        exp1 = c.convert(exp);
+        if (exp1 != null) {
+            result += ("\n\nЖегалкин: " + exp1.toString());
+            result2 += ("\n\nЖегалкин: " + exp1.toString());
+        }
+
+
+
+
+
+
+
+        jTextArea1.setText(result);
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+                results,
+                title) {
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return false;
+            }
+        });
+
+        jTextArea2.setText(result2);
+        jScrollPane2.setViewportView(jTable1);
+    }
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        updateResult();
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void insertIntoInputField(String s) {
+        jTextField1.setText(jTextField1.getText().substring(0, jTextField1.getSelectionStart()) + s + jTextField1.getText().substring(jTextField1.getSelectionStart(), jTextField1.getText().length()) + " ");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton1Rbr;
+    private javax.swing.JButton jButtonBackspace;
     private javax.swing.JButton jButtonCon;
     private javax.swing.JButton jButtonDis;
     private javax.swing.JButton jButtonEql;
@@ -524,7 +573,6 @@ insertIntoInputField("z");        // TODO add your handling code here:
     private javax.swing.JButton jButtonXor;
     private javax.swing.JButton jButtonY;
     private javax.swing.JButton jButtonZ;
-    private javax.swing.JButton jButtonZ1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
