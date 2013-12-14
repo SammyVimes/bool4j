@@ -502,17 +502,17 @@ public class BoolInterface extends javax.swing.JFrame {
 
         Map<String, Boolean> m = varSet.get();
         ClosureClass cc = ClosureClasses.getClosureClass("T0");
-        result += ("\nT0: " + cc.whetherBelongs(exp, m));
-        result2 += ("T0: " + cc.whetherBelongs(exp, m));
+        result += ("\nT0: " + cc.whetherBelongs(exp));
+        result2 += ("T0: " + cc.whetherBelongs(exp));
         cc = ClosureClasses.getClosureClass("T1");
-        result += ("\n\nT1: " + cc.whetherBelongs(exp, m));
-        result2 += ("\n\nT1: " + cc.whetherBelongs(exp, m));
+        result += ("\n\nT1: " + cc.whetherBelongs(exp));
+        result2 += ("\n\nT1: " + cc.whetherBelongs(exp));
         cc = ClosureClasses.getClosureClass("S");
-        result += ("\n\nS: " + cc.whetherBelongs(exp, m));
-        result2 += ("\n\nS: " + cc.whetherBelongs(exp, m));
+        result += ("\n\nS: " + cc.whetherBelongs(exp));
+        result2 += ("\n\nS: " + cc.whetherBelongs(exp));
         cc = ClosureClasses.getClosureClass("M");
-        result += ("\n\nM: " + cc.whetherBelongs(exp, m));
-        result2 += ("\n\nM: " + cc.whetherBelongs(exp, m));
+        result += ("\n\nM: " + cc.whetherBelongs(exp));
+        result2 += ("\n\nM: " + cc.whetherBelongs(exp));
 
 
         Converter c = new SDNFConverter();

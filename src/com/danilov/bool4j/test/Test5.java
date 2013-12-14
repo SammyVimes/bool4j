@@ -25,7 +25,7 @@ public class Test5 implements ITest {
 	
 		Util.Log("Expression: " + expr.toString());
 		ClosureClass cc = ClosureClasses.getClosureClass("T0");
-		Util.Log("Accessory to the " + cc.getStringRepresentation() + " closure class: " + cc.whetherBelongs(expr, mp));
+		/*Util.Log("Accessory to the " + cc.getStringRepresentation() + " closure class: " + cc.whetherBelongs(expr, mp));
 		cc = ClosureClasses.getClosureClass("T1");
 		Util.Log("Accessory to the " + cc.getStringRepresentation() + " closure class: " + cc.whetherBelongs(expr, mp));
 		cc = ClosureClasses.getClosureClass("S");
@@ -46,7 +46,7 @@ public class Test5 implements ITest {
 		cc = ClosureClasses.getClosureClass("T0");
 		Util.Log("Accessory to the " + cc.getStringRepresentation() + " closure class: " + cc.whetherBelongs(expr, null));
 		
-		Util.Log("P.S. Real accessory is not tested yet.");
+		Util.Log("P.S. Real accessory is not tested yet.");*/
 	}
 
 }
