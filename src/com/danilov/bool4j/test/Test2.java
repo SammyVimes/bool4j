@@ -1,7 +1,5 @@
 package com.danilov.bool4j.test;
 
-import java.util.Set;
-
 import ru.matlog.bool4j.expression.Expression;
 import ru.matlog.bool4j.parser.Parser;
 import ru.matlog.bool4j.parser.RecursiveParserImpl;
@@ -13,15 +11,14 @@ public class Test2 implements ITest{
 	@Override
 	public void test() {
 		Parser p = new RecursiveParserImpl();
-		Util.Log(this.getClass().getSimpleName() + ": ");
-		Expression exp = p.parse("(x + y + z + z + y + u)");
-		Util.Log("Desire: (x + y + z + z + y + u)");
+		Expression exp = p.parse("(x + 0 + z + z + neg(((x xor y) + 1)) + 1)");
+		Util.Log("Desire: (x + 0 + z + z + neg(((x xor y) + 1)) + 1)");
 		Util.Log("Result:" + exp.toString());
-	    exp = p.parse("(x + y + (z + z) + y + u)");
-		Util.Log("Desire: (x + y + (z + z) + y + u)");
+	    exp = p.parse("(x + y + (z + 1 + y) + u)");
+		Util.Log("Desire: (x + y + (z + 1 + y) + u)");
 		Util.Log("Result:" + exp.toString());
-	    exp = p.parse("(x + y + ((z <=> z) xor y) + u)");
-		Util.Log("Desire: (x + y + ((z <=> z) xor y) + u)");
+	    exp = p.parse("(x + y + (((z <=> z) xor 1)) + u)");
+		Util.Log("Desire: (x + y + (((z <=> z) xor 1)) + u)");
 		Util.Log("Result:" + exp.toString());
 		exp = p.parse("(x + (y + ((z -> z) xor y)) + u)");
 		Util.Log("Desire: (x + (y + ((z -> z) xor y)) + u)");

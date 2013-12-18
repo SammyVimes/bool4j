@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ru.matlog.bool4j.expression.Expression;
-import ru.matlog.bool4j.expression.ExpressionType;
 
 public final class Functions {
     private static final Map<String, Class> functions = new HashMap<>();
@@ -26,8 +25,6 @@ public final class Functions {
 			setArgumentQuantity(1);
 			setStringRepresentation("neg");
 		}
-		
-		
 	}; 
 	
 	static {
@@ -52,5 +49,4 @@ public final class Functions {
 		} 
 		return o;
 	}
-	
 }
