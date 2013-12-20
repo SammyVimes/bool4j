@@ -15,7 +15,6 @@ import ru.matlog.bool4j.expression.ValidationException;
 public abstract class Function extends Expression {
 	private int argumentQuantity;
 	private Expression arguments[];
-	private String stringRepresentation;
 	
 	public Function() {
 		init();
@@ -41,14 +40,7 @@ public abstract class Function extends Expression {
 		return argumentQuantity;
 	}
 	
-	public String getStringRepresentation() {
-		return stringRepresentation;
-	}
-
-
-	public void setStringRepresentation(String stringRepresentation) {
-		this.stringRepresentation = stringRepresentation;
-	}
+	public abstract String getStringRepresentation();
 
 	public Set<String> getVariablesNames() {
 		Set<String> set = new HashSet<String>();

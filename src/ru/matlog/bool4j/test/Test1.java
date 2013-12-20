@@ -1,7 +1,5 @@
 package ru.matlog.bool4j.test;
 
-import java.util.Set;
-
 import ru.matlog.bool4j.expression.Calculable;
 import ru.matlog.bool4j.expression.Constant;
 import ru.matlog.bool4j.expression.RecursiveCalculableFactoryImpl;
@@ -43,7 +41,6 @@ public class Test1 implements ITest {
 		xor.setSecondOperand(constant);
 		//neg((x*z)<=>(z+y)) xor 1
 		Calculable calc = xor.toCalculable(new RecursiveCalculableFactoryImpl()).with("x", false).with("y", true).with("z", true);
-		Set<String> s = calc.getVariableNames();
 		boolean v = calc.calculate();
 		Util.Log("res = " + v);
 		Util.Log(xor.toString());

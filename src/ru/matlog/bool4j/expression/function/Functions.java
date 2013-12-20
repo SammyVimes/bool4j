@@ -15,9 +15,10 @@ public final class Functions {
 	
 	public static final class NEGATIVE extends Function {
 
+		public static final String REPRESENTATION = "neg";
+		
 		@Override
 		public boolean apply(Map<String, Boolean> variables) {
-			int quantity = getArgumentQuantity();
 			Expression arguments[] = getArguments();
 			Boolean val = arguments[0].calculate(variables);
 			val = !val;
@@ -27,12 +28,16 @@ public final class Functions {
 		@Override
 		public void init() {
 			setArgumentQuantity(1);
-			setStringRepresentation("neg");
+		}
+
+		@Override
+		public String getStringRepresentation() {
+			return REPRESENTATION;
 		}
 	}; 
 	
 	static {
-		functions.put("neg", NEGATIVE.class);
+		functions.put(NEGATIVE.REPRESENTATION, NEGATIVE.class);
 	}
 	
 	public static void add(final Class clazz, final String representation) {

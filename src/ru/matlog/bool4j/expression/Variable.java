@@ -4,7 +4,6 @@
  */
 package ru.matlog.bool4j.expression;
 
-import java.text.ParseException;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;

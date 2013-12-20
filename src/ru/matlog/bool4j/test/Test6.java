@@ -12,6 +12,7 @@ import ru.matlog.bool4j.parser.RecursiveParserImpl;
 import ru.matlog.bool4j.util.Util;
 
 
+@SuppressWarnings("deprecation")
 public class Test6 implements ITest {
 
 	@Override

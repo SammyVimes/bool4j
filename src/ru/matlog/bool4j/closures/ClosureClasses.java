@@ -1,6 +1,5 @@
 package ru.matlog.bool4j.closures;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -107,7 +106,6 @@ public class ClosureClasses {
 
 		@Override
 		public boolean whetherBelongs(final Expression expr) {
-			ArrayList<Expression> expr_lst = new ArrayList<Expression>();
 			VariablesSet vars = new VariablesSet(expr.getVariablesNames());
 			int n = vars.getKeySet().size(); // Количество переменных
 			int n2 = (int) Math.pow(2, n);
@@ -185,11 +183,14 @@ public class ClosureClasses {
 	    public boolean whetherBelongs(final Expression expr) {
 	            JPolynomConverter jcon = new JPolynomConverter();
 	            Expression jpol = jcon.convert(expr);
-	             
+	            
+	            if (jpol instanceof CONJUNCTION) {
+                    return false;
+	            }
+	            
 	            if (jpol.getType() == ExpressionType.OPERATOR) {
 	                    Expression op1 = ((Operator) jpol).getFirstOperand();
 	                    Expression op2 = ((Operator) jpol).getSecondOperand();
-	                    
 	                    return isLinear(op1) && isLinear(op2);
 	            }
 	            
